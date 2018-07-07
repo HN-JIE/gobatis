@@ -3,7 +3,6 @@ package sqlsource
 import (
 	"github.com/wenj91/gobatis/boundsql"
 	"github.com/wenj91/gobatis/mapperstmt"
-	"errors"
 	"strings"
 	"log"
 )
@@ -25,7 +24,7 @@ func NewSqlSource(sqlNode mapperstmt.SqlNode) SqlSource {
 //    如果是静态节点,则参数可以支持是数组形式
 //    如果是动态节点,则参数只能是map,dto或者entity
 func (sqlSource *SqlSource) GetBoundSql(params ...interface{}) (res boundsql.BoundSql, err error) {
-	isDynamic := sqlSource.sqlNode.IsDynamic
+	//isDynamic := sqlSource.sqlNode.IsDynamic
 
 	paramSize := len(params)
 	var param interface{}
@@ -35,6 +34,7 @@ func (sqlSource *SqlSource) GetBoundSql(params ...interface{}) (res boundsql.Bou
 		param = params
 	}
 
+	/*
 	if isDynamic {
 		// 动态sql不可能没有参数的
 		if paramSize == 0 {
@@ -48,6 +48,9 @@ func (sqlSource *SqlSource) GetBoundSql(params ...interface{}) (res boundsql.Bou
 		//静态sql生成
 		res, err = boundsql.StaticGetBoundSql(sqlSource.sqlNode, param)
 	}
+	*/
+
+	res, err := boundsql.TemplateGetBoundSql(sqlSource.sqlNode, param)
 
 	//简化sql语句
 	sqlStr := res.Sql
