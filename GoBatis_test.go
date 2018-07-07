@@ -29,7 +29,10 @@ func TestNewGoBatisGetMap(t *testing.T) {
 
 	//传入id查询Map
 	mapRes := make(map[string]interface{})
-	i, err := gobatis.Select("Mapper.findMapById", 1)(mapRes)
+
+	param := make(map[string]interface{})
+	param["id"] = 616
+	i, err := gobatis.Select("Mapper.findMapById", param)(mapRes)
 	fmt.Println("Mapper.findMapById-->", i, mapRes, err)
 }
 

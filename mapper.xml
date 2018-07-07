@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mapper namespace="Mapper">
     <select id="findMapById" resultType="Map">
-        SELECT id, name FROM user where id=#{id} order by id
+        SELECT id, name FROM users where id={{.id}} order by id
     </select>
     <select id="findStructByStruct" resultType="Struct">
-        SELECT id Id, name Name, create_time CrtTm FROM user where id=#{Id} order by id
+        SELECT id Id, name Name, create_time CrtTm FROM users where id={{.id}} order by id
     </select>
     <insert id="insertStruct">
-        insert into user (name, email, create_time)
-        values (#{Name}, #{Email}, #{CrtTm})
-    </insert>
-    <insert id="insertStructsBatch">
-        insert into user (name, email, create_time)
-        values
-        <foreach collection="list" open="(" close=")" separator=",">
-            #{Name}, #{Email}, #{CrtTm}
-        </foreach>
+        insert into users (name, email, create_time)
+        values ({{.Name}}, {{.Email}}, {{.CrtTm}})
     </insert>
     <update id="updateByStruct">
-        update user set name = #{Name}, email = #{Email}
-        where id = #{Id}
+        update users set name = {{.Name}}, email = {{Email}}
+        where id = {{.Id}}
     </update>
 
     <delete id="deleteById">
-        delete from user where id=#{id}
+        delete from users where id={{id}}
     </delete>
 </mapper>
