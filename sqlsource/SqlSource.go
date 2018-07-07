@@ -50,7 +50,7 @@ func (sqlSource *SqlSource) GetBoundSql(params ...interface{}) (res boundsql.Bou
 	}
 	*/
 
-	res, err := boundsql.TemplateGetBoundSql(sqlSource.sqlNode, param)
+	res, err = boundsql.TemplateGetBoundSql(sqlSource.sqlNode, param)
 
 	//简化sql语句
 	sqlStr := res.Sql
